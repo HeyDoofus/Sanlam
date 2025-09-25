@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>My First HTML Page</title>
+  <title>Sanlam</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
     :root {
@@ -136,6 +136,64 @@
       line-height: 1.5;
     }
 
+    .intro-card {
+      width: min(520px, 100%);
+      margin: 0 auto 2rem;
+      background: rgba(255, 255, 255, 0.95);
+      border-radius: 18px;
+      box-shadow: 0 18px 50px rgba(79, 70, 229, 0.2);
+      padding: clamp(1.5rem, 4vw, 2.5rem);
+      text-align: center;
+      border: 1px solid rgba(99, 102, 241, 0.15);
+    }
+
+    .intro-card h2 {
+      margin-top: 0;
+      margin-bottom: 0.75rem;
+      color: #1e1b4b;
+      font-size: clamp(1.6rem, 4vw, 2rem);
+    }
+
+    .intro-card p {
+      margin: 0 0 1.75rem;
+      color: #4b5563;
+      line-height: 1.6;
+    }
+
+    .intro-actions {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .intro-actions button {
+      min-width: 120px;
+    }
+
+    .ghost-button {
+      background: transparent;
+      color: #4338ca;
+      border: 1px solid rgba(79, 70, 229, 0.4);
+      box-shadow: none;
+    }
+
+    .ghost-button:hover {
+      background: rgba(79, 70, 229, 0.1);
+      transform: translateY(-1px);
+    }
+
+    #opt-out-message {
+      text-align: center;
+      margin-top: 2rem;
+      padding: 1.5rem;
+      background: rgba(254, 226, 226, 0.65);
+      border-radius: 16px;
+      border: 1px solid rgba(248, 113, 113, 0.35);
+      color: #7f1d1d;
+      font-weight: 500;
+    }
+
     button {
       justify-self: start;
       border: none;
@@ -183,7 +241,16 @@
   </style>
 </head>
 <body>
-  <main>
+  <section id="intro-screen" class="intro-card">
+    <h2>We value your feedback!</h2>
+    <p>Would you like to proceed with the quick survey?</p>
+    <div class="intro-actions">
+      <button id="start-survey" type="button">Yes</button>
+      <button id="decline-survey" type="button" class="ghost-button">No</button>
+    </div>
+  </section>
+
+  <main class="hidden" id="survey-form">
     <h1>Sanlam Feedback</h1>
     <p class="description">We value your time. Share a quick snapshot of your experience so we can keep improving.</p>
 
@@ -276,9 +343,31 @@
     <p id="form-status" role="status" aria-live="polite"></p>
   </main>
 
+  <div id="opt-out-message" class="hidden">
+    We understand—thanks for letting us know. We'll note your preference and won't reach out about this survey again.
+  </div>
+
   <script>
     const endpoint = "https://sanlam-gilt.vercel.app/api/submit";
     const ratingSelects = document.querySelectorAll('select[data-feedback]');
+    const introScreen = document.getElementById('intro-screen');
+    const surveyFormSection = document.getElementById('survey-form');
+    const optOutMessage = document.getElementById('opt-out-message');
+    const startSurveyButton = document.getElementById('start-survey');
+    const declineSurveyButton = document.getElementById('decline-survey');
+
+    startSurveyButton.addEventListener('click', () => {
+      introScreen.classList.add('hidden');
+      surveyFormSection.classList.remove('hidden');
+      const firstInput = document.querySelector('#feedback-form input, #feedback-form select, #feedback-form textarea');
+      if (firstInput) firstInput.focus();
+    });
+
+    declineSurveyButton.addEventListener('click', () => {
+      introScreen.classList.add('hidden');
+      optOutMessage.classList.remove('hidden');
+      surveyFormSection.classList.add('hidden');
+    });
 
     function toggleFeedback(select) {
       const targetId = select.dataset.feedback;
