@@ -5,9 +5,115 @@
   <title>My First HTML Page</title>
 </head>
 <body>
-  <h1>Hello, World!</h1>
-  <p>This is a basic HTML page.</p>
-  <div id="form-1e217edc-ab63-4a57-909f-38bae19973d1"></div>
-  <script async src="https://forms.infobip.com/forms/1e217edc-ab63-4a57-909f-38bae19973d1.js"></script>
+  <h1>Sanlam Feedback</h1>
+  <p>Please share your experience below.</p>
+
+  <form id="feedback-form">
+    <label>
+      Phone number
+      <input name="phoneNumber" type="tel" placeholder="27721234545" required>
+    </label>
+
+    <label>
+      Branch visited
+      <input name="BranchVisited" placeholder="Sandton" required>
+    </label>
+
+    <label>
+      Consultant rating
+      <select name="ConsultantDropDown" required>
+        <option value="" disabled selected>Select an option</option>
+        <option>Excellent</option>
+        <option>Average</option>
+        <option>Poor</option>
+      </select>
+    </label>
+
+    <label>
+      Consultant feedback
+      <textarea name="ConsultantFeedback" rows="3"></textarea>
+    </label>
+
+    <label>
+      Ease of service rating
+      <select name="EasyDropDown" required>
+        <option value="" disabled selected>Select an option</option>
+        <option>Excellent</option>
+        <option>Average</option>
+        <option>Poor</option>
+      </select>
+    </label>
+
+    <label>
+      Ease of service feedback
+      <textarea name="EasyFeedback" rows="3"></textarea>
+    </label>
+
+    <label>
+      Referral rating
+      <select name="ReferralDropDown" required>
+        <option value="" disabled selected>Select an option</option>
+        <option>Excellent</option>
+        <option>Average</option>
+        <option>Poor</option>
+      </select>
+    </label>
+
+    <label>
+      Referral feedback
+      <textarea name="ReferralFeedback" rows="3"></textarea>
+    </label>
+
+    <label>
+      Overall rating
+      <select name="OverallDropDown" required>
+        <option value="" disabled selected>Select an option</option>
+        <option>Excellent</option>
+        <option>Average</option>
+        <option>Poor</option>
+      </select>
+    </label>
+
+    <label>
+      Overall feedback
+      <textarea name="OverallFeedback" rows="3"></textarea>
+    </label>
+
+    <button type="submit">Submit</button>
+  </form>
+
+  <p id="form-status" role="status" aria-live="polite"></p>
+
+  <script>
+    const endpoint = "https://your-vercel-app.vercel.app/api/submit"; // TODO: replace with your deployed URL
+
+    document.getElementById("feedback-form").addEventListener("submit", async (event) => {
+      event.preventDefault();
+
+      const form = event.target;
+      const status = document.getElementById("form-status");
+      const formData = Object.fromEntries(new FormData(form).entries());
+
+      status.textContent = "Submitting...";
+
+      try {
+        const response = await fetch(endpoint, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(formData)
+        });
+
+        if (!response.ok) {
+          const error = await response.json().catch(() => ({}));
+          throw new Error(error.detail || response.statusText);
+        }
+
+        status.textContent = "Thanks! Your feedback has been submitted.";
+        form.reset();
+      } catch (err) {
+        status.textContent = `Submission failed: ${err.message}`;
+      }
+    });
+  </script>
 </body>
 </html>
