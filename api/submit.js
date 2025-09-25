@@ -1,11 +1,15 @@
 const allowedOrigin = process.env.ALLOWED_ORIGIN || "https://heydoofus.github.io";
 const apiBaseUrl = process.env.INFOBIP_BASE_URL || "https://3xkgm.api.infobip.com";
 const formId = process.env.INFOBIP_FORM_ID;
-const appKey = process.env.INFOBIP_APP_KEY;
+const rawAppKey = process.env.INFOBIP_APP_KEY;
 const submissionSource = process.env.IB_SUBMISSION_SOURCE || "";
 const submissionCampaign = process.env.IB_SUBMISSION_FORM_CAMPAIGN || "";
 
-const requiredEnv = { INFOBIP_FORM_ID: formId, INFOBIP_APP_KEY: appKey };
+const requiredEnv = { INFOBIP_FORM_ID: formId, INFOBIP_APP_KEY: rawAppKey };
+
+const appKey = rawAppKey && rawAppKey.startsWith("App ")
+  ? rawAppKey.slice(4)
+  : rawAppKey;
 
 function envIsMissing() {
   return Object.entries(requiredEnv)
