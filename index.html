@@ -3,89 +3,311 @@
 <head>
   <meta charset="UTF-8">
   <title>My First HTML Page</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    :root {
+      color-scheme: light;
+      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background-color: #f5f7fb;
+      color: #1f2937;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      background: radial-gradient(circle at top, #eef2ff 0%, #f5f7fb 45%, #e0e7ff 100%);
+    }
+
+    main {
+      width: min(720px, 100%);
+      background: rgba(255, 255, 255, 0.92);
+      border-radius: 18px;
+      box-shadow: 0 18px 60px rgba(79, 70, 229, 0.15);
+      backdrop-filter: blur(12px);
+      padding: clamp(1.5rem, 4vw, 3rem);
+      border: 1px solid rgba(99, 102, 241, 0.08);
+    }
+
+    h1 {
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
+      margin: 0 0 0.5rem;
+      color: #1e1b4b;
+    }
+
+    p.description {
+      margin: 0 0 2rem;
+      color: #4b5563;
+      line-height: 1.5;
+    }
+
+    form {
+      display: grid;
+      gap: 1.5rem;
+    }
+
+    .field {
+      display: grid;
+      gap: 0.6rem;
+    }
+
+    label span {
+      font-weight: 600;
+      font-size: 0.95rem;
+      color: #312e81;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      border-radius: 12px;
+      border: 1px solid rgba(99, 102, 241, 0.25);
+      background: rgba(255, 255, 255, 0.9);
+      padding: 0.85rem 1rem;
+      font-size: 1rem;
+      color: inherit;
+      transition: border-color 200ms ease, box-shadow 200ms ease, transform 200ms ease;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      outline: none;
+      border-color: #6366f1;
+      box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.18);
+      transform: translateY(-1px);
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    .grid-two {
+      display: grid;
+      gap: 1.5rem;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+
+    .rating-group {
+      display: grid;
+      gap: 1.5rem;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .question-label {
+      font-weight: 600;
+      color: #1e1b4b;
+      display: block;
+      line-height: 1.4;
+    }
+
+    .question-number {
+      color: #4c1d95;
+      font-weight: 700;
+      margin-right: 0.5rem;
+    }
+
+    .rating-help {
+      font-size: 0.9rem;
+      color: #3730a3;
+      background: rgba(59, 130, 246, 0.08);
+      border-left: 3px solid rgba(59, 130, 246, 0.5);
+      padding: 0.75rem 1rem;
+      border-radius: 10px;
+      line-height: 1.6;
+    }
+
+    .feedback-message {
+      margin: 0;
+      font-size: 0.9rem;
+      color: #1f2937;
+      line-height: 1.5;
+    }
+
+    button {
+      justify-self: start;
+      border: none;
+      border-radius: 999px;
+      padding: 0.85rem 1.75rem;
+      font-weight: 600;
+      font-size: 1rem;
+      letter-spacing: 0.01em;
+      cursor: pointer;
+      color: white;
+      background: linear-gradient(135deg, #6366f1, #4338ca);
+      box-shadow: 0 12px 30px rgba(79, 70, 229, 0.25);
+      transition: transform 180ms ease, box-shadow 200ms ease;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 16px 36px rgba(79, 70, 229, 0.3);
+    }
+
+    button:active {
+      transform: translateY(0);
+      box-shadow: 0 12px 24px rgba(79, 70, 229, 0.25);
+    }
+
+    #form-status {
+      margin-top: 1.5rem;
+      font-weight: 500;
+      color: #1e1b4b;
+      background: rgba(79, 70, 229, 0.08);
+      padding: 0.85rem 1.2rem;
+      border-radius: 12px;
+      border: 1px solid rgba(79, 70, 229, 0.12);
+    }
+
+    @media (max-width: 640px) {
+      body {
+        padding: 1.5rem;
+      }
+
+      main {
+        padding: 1.75rem;
+      }
+    }
+  </style>
 </head>
 <body>
-  <h1>Sanlam Feedback</h1>
-  <p>Please share your experience below.</p>
+  <main>
+    <h1>Sanlam Feedback</h1>
+    <p class="description">We value your time. Share a quick snapshot of your experience so we can keep improving.</p>
 
-  <form id="feedback-form">
-    <label>
-      Phone number
-      <input name="phoneNumber" type="tel" placeholder="27721234545" required>
-    </label>
+    <form id="feedback-form">
+      <div class="grid-two">
+        <label class="field">
+          <span>Phone number</span>
+          <input name="phoneNumber" type="tel" placeholder="27721234545" required>
+        </label>
 
-    <label>
-      Branch visited
-      <input name="BranchVisited" placeholder="Sandton" required>
-    </label>
+        <label class="field">
+          <span>Branch visited</span>
+          <input name="BranchVisited" placeholder="Sandton" required>
+        </label>
+      </div>
 
-    <label>
-      Consultant rating
-      <select name="ConsultantDropDown" required>
-        <option value="" disabled selected>Select an option</option>
-        <option>Excellent</option>
-        <option>Average</option>
-        <option>Poor</option>
-      </select>
-    </label>
+      <div class="rating-group">
+        <label class="field">
+          <span class="question-label"><span class="question-number">Q1.</span>Are you satisfied with the service you received today from the Consultant?</span>
+          <select name="ConsultantDropDown" required data-feedback="consultant-feedback">
+            <option value="" disabled selected>Select a rating</option>
+            <option value="Excellent">😊 Excellent</option>
+            <option value="Average">😐 Average</option>
+            <option value="Poor">🙁 Poor</option>
+          </select>
+        </label>
 
-    <label>
-      Consultant feedback
-      <textarea name="ConsultantFeedback" rows="3"></textarea>
-    </label>
+        <label class="field hidden" id="consultant-feedback">
+          <span>Consultant feedback</span>
+          <p class="feedback-message"></p>
+          <textarea name="ConsultantFeedback" rows="3" placeholder="Tell us about your consultant's service"></textarea>
+        </label>
 
-    <label>
-      Ease of service rating
-      <select name="EasyDropDown" required>
-        <option value="" disabled selected>Select an option</option>
-        <option>Excellent</option>
-        <option>Average</option>
-        <option>Poor</option>
-      </select>
-    </label>
+        <label class="field">
+          <span class="question-label"><span class="question-number">Q2.</span>Was it easy for you to be assisted?</span>
+          <select name="EasyDropDown" required data-feedback="ease-feedback">
+            <option value="" disabled selected>Select a rating</option>
+            <option value="Excellent">😊 Excellent</option>
+            <option value="Average">😐 Average</option>
+            <option value="Poor">🙁 Poor</option>
+          </select>
+        </label>
 
-    <label>
-      Ease of service feedback
-      <textarea name="EasyFeedback" rows="3"></textarea>
-    </label>
+        <label class="field hidden" id="ease-feedback">
+          <span>Ease of service feedback</span>
+          <p class="feedback-message"></p>
+          <textarea name="EasyFeedback" rows="3" placeholder="Was it easy to get what you needed?"></textarea>
+        </label>
 
-    <label>
-      Referral rating
-      <select name="ReferralDropDown" required>
-        <option value="" disabled selected>Select an option</option>
-        <option>Excellent</option>
-        <option>Average</option>
-        <option>Poor</option>
-      </select>
-    </label>
+        <label class="field">
+          <span class="question-label"><span class="question-number">Q3.</span>Would you refer Sanlam/Assupol to friends and family?</span>
+          <select name="ReferralDropDown" required data-feedback="referral-feedback">
+            <option value="" disabled selected>Select a rating</option>
+            <option value="Excellent">😊 Excellent</option>
+            <option value="Average">😐 Average</option>
+            <option value="Poor">🙁 Poor</option>
+          </select>
+        </label>
 
-    <label>
-      Referral feedback
-      <textarea name="ReferralFeedback" rows="3"></textarea>
-    </label>
+        <label class="field hidden" id="referral-feedback">
+          <span>Referral feedback</span>
+          <p class="feedback-message"></p>
+          <textarea name="ReferralFeedback" rows="3" placeholder="Would you recommend us? Why or why not?"></textarea>
+        </label>
 
-    <label>
-      Overall rating
-      <select name="OverallDropDown" required>
-        <option value="" disabled selected>Select an option</option>
-        <option>Excellent</option>
-        <option>Average</option>
-        <option>Poor</option>
-      </select>
-    </label>
+        <label class="field">
+          <span class="question-label"><span class="question-number">Q4.</span>Please rate your overall experience at the branch.</span>
+          <select name="OverallDropDown" required data-feedback="overall-feedback">
+            <option value="" disabled selected>Select a rating</option>
+            <option value="Excellent">😊 Excellent</option>
+            <option value="Average">😐 Average</option>
+            <option value="Poor">🙁 Poor</option>
+          </select>
+        </label>
 
-    <label>
-      Overall feedback
-      <textarea name="OverallFeedback" rows="3"></textarea>
-    </label>
+        <label class="field hidden" id="overall-feedback">
+          <span>Overall feedback</span>
+          <p class="feedback-message"></p>
+          <textarea name="OverallFeedback" rows="3" placeholder="Any final thoughts?"></textarea>
+        </label>
+      </div>
 
-    <button type="submit">Submit</button>
-  </form>
+      <div class="rating-help">
+        Low &amp; Average ratings: we’re sorry things weren’t perfect. Share a quick note so we can follow up and help.
+      </div>
 
-  <p id="form-status" role="status" aria-live="polite"></p>
+      <button type="submit">Submit feedback</button>
+    </form>
+
+    <p id="form-status" role="status" aria-live="polite"></p>
+  </main>
 
   <script>
     const endpoint = "https://sanlam-gilt.vercel.app/api/submit";
+    const ratingSelects = document.querySelectorAll('select[data-feedback]');
+
+    function toggleFeedback(select) {
+      const targetId = select.dataset.feedback;
+      const container = document.getElementById(targetId);
+      if (!container) return;
+
+      const textarea = container.querySelector('textarea');
+      const message = container.querySelector('.feedback-message');
+      const show = select.value === "Average" || select.value === "Poor";
+      container.classList.toggle('hidden', !show);
+
+      if (!show && textarea) {
+        textarea.value = "";
+      }
+
+      if (message) {
+        if (show) {
+          const tone = select.value.toLowerCase();
+          message.textContent = `Oh no 🙁, we are sad to hear your experience was ${tone}. We want to help fix this, please share with us why your experience was ${tone} by giving a short description and we will come back to you.`;
+        } else {
+          message.textContent = "";
+        }
+      }
+    }
+
+    ratingSelects.forEach((select) => {
+      toggleFeedback(select);
+      select.addEventListener('change', () => toggleFeedback(select));
+    });
 
     document.getElementById("feedback-form").addEventListener("submit", async (event) => {
       event.preventDefault();
@@ -110,6 +332,7 @@
 
         status.textContent = "Thanks! Your feedback has been submitted.";
         form.reset();
+        ratingSelects.forEach((select) => toggleFeedback(select));
       } catch (err) {
         status.textContent = `Submission failed: ${err.message}`;
       }

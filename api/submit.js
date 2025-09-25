@@ -2,8 +2,8 @@ const allowedOrigin = process.env.ALLOWED_ORIGIN || "https://heydoofus.github.io
 const apiBaseUrl = process.env.INFOBIP_BASE_URL || "https://3xkgm.api.infobip.com";
 const formId = process.env.INFOBIP_FORM_ID;
 const rawAppKey = process.env.INFOBIP_APP_KEY;
-const submissionSource = process.env.IB_SUBMISSION_SOURCE || "";
-const submissionCampaign = process.env.IB_SUBMISSION_FORM_CAMPAIGN || "";
+const submissionSource = process.env.IB_SUBMISSION_SOURCE || "SMS";
+const submissionCampaign = process.env.IB_SUBMISSION_FORM_CAMPAIGN || "Branch NPS";
 
 const requiredEnv = { INFOBIP_FORM_ID: formId, INFOBIP_APP_KEY: rawAppKey };
 
