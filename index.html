@@ -77,6 +77,11 @@
       transition: border-color 200ms ease, box-shadow 200ms ease, transform 200ms ease;
     }
 
+    input.prefilled {
+      background: rgba(226, 232, 240, 0.6);
+      cursor: not-allowed;
+    }
+
     input:focus,
     select:focus,
     textarea:focus {
@@ -145,6 +150,18 @@
       padding: clamp(1.5rem, 4vw, 2.5rem);
       text-align: center;
       border: 1px solid rgba(99, 102, 241, 0.15);
+    }
+
+    .brand-logo {
+      width: clamp(160px, 28vw, 240px);
+      height: auto;
+      margin-bottom: 1.75rem;
+      filter: drop-shadow(0 18px 45px rgba(79, 70, 229, 0.25));
+    }
+
+    .brand-logo.inline {
+      display: block;
+      margin: 0 auto 2rem;
     }
 
     .intro-card h2 {
@@ -242,16 +259,17 @@
 </head>
 <body>
   <section id="intro-screen" class="intro-card">
+    <img src="public/logo.jpg" alt="Sanlam" class="brand-logo inline">
     <h2>We value your feedback!</h2>
-    <p>Would you like to proceed with the quick survey?</p>
+    <p>Would you like to proceed with the quick survey? It only takes a minute and helps us improve every visit.</p>
     <div class="intro-actions">
-      <button id="start-survey" type="button">Yes</button>
-      <button id="decline-survey" type="button" class="ghost-button">No</button>
+      <button id="start-survey" type="button">Yes, let's do it</button>
+      <button id="decline-survey" type="button" class="ghost-button">No, maybe later</button>
     </div>
   </section>
 
   <main class="hidden" id="survey-form">
-    <h1>Sanlam Feedback</h1>
+    <img src="public/logo.jpg" alt="Sanlam" class="brand-logo">
     <p class="description">We value your time. Share a quick snapshot of your experience so we can keep improving.</p>
 
     <form id="feedback-form">
@@ -355,6 +373,24 @@
     const optOutMessage = document.getElementById('opt-out-message');
     const startSurveyButton = document.getElementById('start-survey');
     const declineSurveyButton = document.getElementById('decline-survey');
+    const phoneInput = document.querySelector('input[name="phoneNumber"]');
+    const branchInput = document.querySelector('input[name="BranchVisited"]');
+
+    const params = new URLSearchParams(window.location.search);
+    const prefillPhone = params.get('phone');
+    const prefillBranch = params.get('branch');
+
+    if (prefillPhone && phoneInput) {
+      phoneInput.value = prefillPhone;
+      phoneInput.readOnly = true;
+      phoneInput.classList.add('prefilled');
+    }
+
+    if (prefillBranch && branchInput) {
+      branchInput.value = prefillBranch;
+      branchInput.readOnly = true;
+      branchInput.classList.add('prefilled');
+    }
 
     startSurveyButton.addEventListener('click', () => {
       introScreen.classList.add('hidden');
