@@ -280,8 +280,17 @@
         </label>
 
         <label class="field">
-          <span>Branch visited</span>
-          <input name="BranchVisited" placeholder="Sandton" required>
+          <span>Branch name</span>
+          <input name="BranchName" placeholder="Sandton" required>
+        </label>
+        <label class="field">
+          <span>Consultant name</span>
+          <input name="ConsultantName" placeholder="John" required>
+        </label>
+
+        <label class="field">
+          <span>Consultant surname</span>
+          <input name="ConsultantSurname" placeholder="Doe" required>
         </label>
       </div>
 
@@ -374,11 +383,15 @@
     const startSurveyButton = document.getElementById('start-survey');
     const declineSurveyButton = document.getElementById('decline-survey');
     const phoneInput = document.querySelector('input[name="phoneNumber"]');
-    const branchInput = document.querySelector('input[name="BranchVisited"]');
+    const branchInput = document.querySelector('input[name="BranchName"]');
+    const consultantNameInput = document.querySelector('input[name="ConsultantName"]');
+    const consultantSurnameInput = document.querySelector('input[name="ConsultantSurname"]');
 
     const params = new URLSearchParams(window.location.search);
     const prefillPhone = params.get('phone');
     const prefillBranch = params.get('branch');
+    const prefillConsultantName = params.get('consultantName');
+    const prefillConsultantSurname = params.get('consultantSurname');
 
     if (prefillPhone && phoneInput) {
       phoneInput.value = prefillPhone;
@@ -390,6 +403,18 @@
       branchInput.value = prefillBranch;
       branchInput.readOnly = true;
       branchInput.classList.add('prefilled');
+    }
+
+    if (prefillConsultantName && consultantNameInput) {
+      consultantNameInput.value = prefillConsultantName;
+      consultantNameInput.readOnly = true;
+      consultantNameInput.classList.add('prefilled');
+    }
+
+    if (prefillConsultantSurname && consultantSurnameInput) {
+      consultantSurnameInput.value = prefillConsultantSurname;
+      consultantSurnameInput.readOnly = true;
+      consultantSurnameInput.classList.add('prefilled');
     }
 
     startSurveyButton.addEventListener('click', () => {
