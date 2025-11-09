@@ -283,14 +283,15 @@
           <span>Branch name</span>
           <input name="BranchName" placeholder="Insert" required>
         </label>
-        <!-- <label class="field">
-          <span>Consultant name</span>
-          <input name="ConsultantName" placeholder="John" required>
-        </label> -->
 
         <label class="field hidden">
           <span>Consultant surname</span>
           <input name="ConsultantSurname" placeholder="Doe" required>
+        </label>
+
+        <label class="field hidden">
+          <span>Provider</span>
+          <input name="Provider" placeholder="Insert" required>
         </label>
       </div>
 
@@ -360,10 +361,6 @@
         </label>
       </div>
 
-      <!-- <div class="rating-help">
-        Low &amp; Average ratings: we’re sorry things weren’t perfect. Share a quick note so we can follow up and help.
-      </div> -->
-
       <button type="submit">Submit feedback</button>
     </form>
 
@@ -386,12 +383,14 @@
     const branchInput = document.querySelector('input[name="BranchName"]');
     const consultantNameInput = document.querySelector('input[name="ConsultantName"]');
     const consultantSurnameInput = document.querySelector('input[name="ConsultantSurname"]');
+    const providerInput = document.querySelector('input[name="Provider"]');
 
     const params = new URLSearchParams(window.location.search);
     const prefillPhone = params.get('phone');
     const prefillBranch = params.get('branch');
     const prefillConsultantName = params.get('consultantName');
     const prefillConsultantSurname = params.get('consultantSurname');
+    const prefillProvider = params.get('provider');
 
     if (prefillPhone && phoneInput) {
       phoneInput.value = prefillPhone;
@@ -415,6 +414,12 @@
       consultantSurnameInput.value = prefillConsultantSurname;
       consultantSurnameInput.readOnly = true;
       consultantSurnameInput.classList.add('prefilled');
+    }
+
+    if (prefillProvider && providerInput) {
+      providerInput.value = prefillProvider;
+      providerInput.readOnly = true;
+      providerInput.classList.add('prefilled');
     }
 
     startSurveyButton.addEventListener('click', () => {
